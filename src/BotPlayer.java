@@ -7,23 +7,24 @@ public class BotPlayer extends Player{
         super("O");
     }
 
-    public int[] botChooseMove(String[][] spielFeld){
-        List<int[]> freieFelder = new ArrayList<>();
+    public int[] botChooseMove(String[][] gameField){
+        // Checks which Fields are empty and picks random one
+        List<int[]> allEmptyFields = new ArrayList<>();
 
         for (int r = 0; r < 3; r++){
             for (int c = 0; c < 3; c++){
-                if (spielFeld[r][c] == null){
-                    freieFelder.add(new int[]{r, c});
+                if (gameField[r][c] == null){
+                    allEmptyFields.add(new int[]{r, c});
                 }
             }
         }
 
-        if (freieFelder.isEmpty()){
+        if (allEmptyFields.isEmpty()){
             return null;
         }
 
-        int index = (int) ((Math.random() * freieFelder.size()));
-        return freieFelder.get(index);
+        int index = (int) ((Math.random() * allEmptyFields.size()));
+        return allEmptyFields.get(index);
     }
 
 

@@ -67,6 +67,7 @@ public class Board {
     }
 
     public void initBoard(){
+        // creating the Menu
         gameWindow = new JFrame("TicTacToe");
         gameWindow.setSize(300,300);
         gameWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -78,6 +79,7 @@ public class Board {
     }
 
     public void setGrid(){
+        // creating the Gamegrid
         for (int row = 0; row < 3; row++){
             for (int col = 0; col < 3; col++){
                 JButton field = new JButton("");
@@ -93,23 +95,27 @@ public class Board {
     }
 
     private void onFieldClicked(int row, int col) {
+        // Playeraction pressing on a Field and checking if its empty
         System.out.println("Klick auf: " + row + ", " + col);
         if (game.makeMove(row, col)){
             fields[row][col].setText(game.getField(row, col));
 
             String winner = game.checkWinner();
+            // checking if Player wins
             if (winner != null){
                 JOptionPane.showMessageDialog(null, "Spieler "+ winner +" hat gewonnen!", "Spielende", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Spieler "+ winner +" hat gewonnen!");
                 gameWindow.dispose();
                 menuWindow.setVisible(true);
             }
+            // checking if its a tie
             if (game.tie()){
                 JOptionPane.showMessageDialog(null, "Unentschieden", "Spielende", JOptionPane.INFORMATION_MESSAGE);
                 System.out.println("Unentschieden");
                 gameWindow.dispose();
                 menuWindow.setVisible(true);
             }
+            // checking if Bot can do his turn
             if ((game.isBotTurn()) && (winner == null)){
                 startBotTurnWithDelay();
             }
@@ -119,6 +125,7 @@ public class Board {
     }
 
     private void startBotTurnWithDelay() {
+        // Bot making a turn after 1 sec
         Timer timer = new Timer(1000, e -> {
             int[] botMove = game.botMove();
             if (botMove != null) {

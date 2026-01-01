@@ -13,6 +13,7 @@ public class Game{
     }
 
     public boolean makeMove(int row, int col){
+        // setting a Symbol
         if (gameBoard[row][col] == null){
             gameBoard[row][col] = currentPlayer.getSymbol();
             switchPlayer();
@@ -24,6 +25,7 @@ public class Game{
     }
 
     private void switchPlayer(){
+        // switching to the next Player
         if(currentPlayer == playerX){
             currentPlayer = playerO;
         } else{
@@ -32,13 +34,14 @@ public class Game{
     }
 
     public int[] botMove(){
-            BotPlayer bot = (BotPlayer) currentPlayer;
-            int[] move = bot.botChooseMove(gameBoard);
+        // Bot player setting a symbol
+        BotPlayer bot = (BotPlayer) currentPlayer;
+        int[] move = bot.botChooseMove(gameBoard);
 
-            if (move == null) return null;
+        if (move == null) return null;
 
-            makeMove(move[0], move[1]);
-            return move;
+        makeMove(move[0], move[1]);
+        return move;
     }
 
     public boolean isBotTurn(){
@@ -50,6 +53,7 @@ public class Game{
     }
 
     public String checkWinner(){
+        // checking every Combination
         if ((gameBoard[0][0] != null) && (gameBoard[0][0].equals(gameBoard[0][1])) && (gameBoard[0][1].equals(gameBoard[0][2]))) return gameBoard[0][0];
         if ((gameBoard[0][0] != null) && (gameBoard[0][0].equals(gameBoard[1][1])) && (gameBoard[1][1].equals(gameBoard[2][2]))) return gameBoard[0][0];
         if ((gameBoard[0][0] != null) && (gameBoard[0][0].equals(gameBoard[1][0])) && (gameBoard[1][0].equals(gameBoard[2][0]))) return gameBoard[0][0];
@@ -62,6 +66,7 @@ public class Game{
     }
 
     public boolean tie(){
+        // checking for tie if Board is full
         int emptyFields = 0;
         for (int i = 0; i < 3; i++){
             for (int j = 0; j < 3; j++){
